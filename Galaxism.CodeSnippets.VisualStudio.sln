@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxism.CodeSnippets.VisualStudio", "Galaxism.CodeSnippets.VisualStudio\Galaxism.CodeSnippets.VisualStudio.csproj", "{10836028-E68B-40B6-BDD2-2DAE64D4C49E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxism.CodeSnippets.VisualStudioTests", "Galaxism.CodeSnippets.VisualStudioTests\Galaxism.CodeSnippets.VisualStudioTests.csproj", "{68FBCB6F-6F29-4F04-A5AF-A579F90155CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10836028-E68B-40B6-BDD2-2DAE64D4C49E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10836028-E68B-40B6-BDD2-2DAE64D4C49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10836028-E68B-40B6-BDD2-2DAE64D4C49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10836028-E68B-40B6-BDD2-2DAE64D4C49E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68FBCB6F-6F29-4F04-A5AF-A579F90155CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68FBCB6F-6F29-4F04-A5AF-A579F90155CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68FBCB6F-6F29-4F04-A5AF-A579F90155CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68FBCB6F-6F29-4F04-A5AF-A579F90155CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFAD6350-3A07-42B2-8AA5-E6D56F78083A}
+	EndGlobalSection
+EndGlobal
