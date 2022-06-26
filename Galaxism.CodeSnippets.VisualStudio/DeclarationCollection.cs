@@ -25,5 +25,16 @@ public class DeclarationCollection: IValidateElement
                 }
             }
         }
+
+        if(Objects is not null && Objects.Count > 0)
+        {
+            foreach(var objectObject in Objects)
+            {
+                foreach(var item in objectObject.Validate())
+                {
+                    yield return item; 
+                }
+            }
+        }
     }
 }

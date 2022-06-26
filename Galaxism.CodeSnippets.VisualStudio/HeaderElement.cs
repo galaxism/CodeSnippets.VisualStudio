@@ -18,7 +18,7 @@ public class HeaderElement: IValidateElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        if(Title is null)
+        if(string.IsNullOrWhiteSpace(Title))
         {
             yield return new ValidationError("Title", "Title is mandatory in Header. ");
         }

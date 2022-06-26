@@ -5,7 +5,15 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<Version>0.1.1</Version>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
 	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="System.Xml.Serialization"/>
+		<Using Include="System.Xml.Linq"/>
+		<Using Include="System.Xml"/>
+	</ItemGroup>
 
 </Project>

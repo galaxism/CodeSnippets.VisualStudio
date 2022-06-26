@@ -7,6 +7,10 @@ public class CodeSnippetElement: IValidateElement
 
     public IEnumerable<ValidationError> Validate()
     {
+        if(Format == null)
+        {
+            yield return new ValidationError(nameof(Format), "Format must be a valid x.x.x format string. ");
+        }
         if(Header is null)
         {
             yield return new ValidationError("Header", "Header is mandatory. ");
@@ -17,11 +21,17 @@ public class CodeSnippetElement: IValidateElement
         }
         if(Header is not null)
         {
-            
+            foreach(var item in Header.Validate())
+            {
+                yield return item;
+            }
         }
         if(Snippet is not null)
         {
-            
+            foreach(var item in Snippet.Validate())
+            {
+                yield return item;
+            }
         }
     }
 }

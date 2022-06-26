@@ -6,6 +6,9 @@ public class ReferenceElement: IValidateElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        yield break;
+        if (string.IsNullOrWhiteSpace(Assembly))
+        {
+            yield return new ValidationError(nameof(Assembly), "Assembly is mandatory in Reference");
+        }
     }
 }
