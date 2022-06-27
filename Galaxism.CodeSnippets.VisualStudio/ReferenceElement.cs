@@ -1,7 +1,6 @@
 ﻿namespace Galaxism.CodeSnippets.VisualStudio;
 public class ReferenceElement: IValidateElement, IElement
 {
-    private const string XmlElementName = "Reference";
     public string? Assembly { get; set; }
     public string? Url { get; set; }
 
@@ -16,11 +15,11 @@ public class ReferenceElement: IValidateElement, IElement
         {
             return null;
         }
-        XElement element = new(XmlElementName);
+        XElement element = new(ElementNames.Reference);
         element.Add(new XElement(ElementNames.Assembly, Assembly));
         if (!string.IsNullOrWhiteSpace(Url))
         {
-            element.Add(new XElement("Url", Url));
+            element.Add(new XElement(ElementNames.Url, Url));
         }
         return element;
     }

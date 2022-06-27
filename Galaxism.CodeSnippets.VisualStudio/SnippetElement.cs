@@ -2,14 +2,14 @@
 public class SnippetElement: IValidateElement, IElement
 {
     public CodeElement? Code { get; set; }
-    public DeclarationCollection Declarations { get; }
+    public Declarations Declarations { get; }
     public List<string> Imports { get; }
     public List<ReferenceElement> References { get; }
 
     public SnippetElement()
     {
         Imports = new List<string>();
-        Declarations = new DeclarationCollection();
+        Declarations = new Declarations();
         References= new List<ReferenceElement>();
     }
 
@@ -17,7 +17,7 @@ public class SnippetElement: IValidateElement, IElement
     {
         if(Code is null)
         {
-            yield return new ValidationError("Code", "Code is mandatory in Snippet. ");
+            yield return new ValidationError(ElementNames.Code, "Code is mandatory in Snippet. ");
         }
         if(Code is not null)
         {
@@ -31,35 +31,41 @@ public class SnippetElement: IValidateElement, IElement
 
     public XElement Serialize()
     {
-        XElement e = new("CodeSnippet");
-        if (Code != null)
-        {
-            e.Add(Code.Serialize());
-        }
-        if (Declarations.Literals.Count + Declarations.Objects.Count > 0)
-        {
-            XElement declarations = new("Declarations");
-            foreach (var literal in Declarations.Literals)
-            {
-                declarations.Add(literal.Serialize());
-            }
-            foreach (var objectObject in Declarations.Objects)
-            {
-                declarations.Add(objectObject.Serialize());
-            }
-            e.Add(declarations);
-        }
+        XElement e = new(ElementNames.Snippet);
+        e.Add(Declarations.Serialize());
         if (Imports.Count > 0)
         {
-            XElement imports = new("Imports");
-            foreach(var import in Imports)
+            XElement imports = new(ElementNames.Imports);
+            foreach (var import in Imports)
             {
-                XElement importElement = new("Import", new XElement("Namespace", import));
+                XElement importElement = new(ElementNames.Import, new XElement(ElementNames.Namespace, import));
                 imports.Add(importElement);
             }
             e.Add(imports);
         }
-
+        if (Code != null)
+        {
+            e.Add(Code.Serialize());
+        }
+        
+        if(References.Count > 0)
+        {
+            XElement referencesElement = new(ElementNames.References);
+            int count = 0;
+            foreach (var reference in References)
+            {
+                XElement? referenceElement = reference.Serialize();
+                if (referenceElement is not null)
+                {
+                    referencesElement.Add(referenceElement);
+                    count++;
+                }
+            }
+            if (count > 0)
+            {
+                e.Add(referencesElement);
+            }
+        }
         return e;
     }
 

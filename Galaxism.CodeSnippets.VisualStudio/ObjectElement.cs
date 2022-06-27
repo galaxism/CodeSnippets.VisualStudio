@@ -15,17 +15,17 @@ public class ObjectElement: IValidateElement, IElement
 
     public XElement Serialize()
     {
-        XElement element = new("Object");
-        element.Add(new XElement("ID", ID));
-        element.Add(new XElement("Type", Type));
-        element.Add(new XElement("Default", Default));
+        XElement element = new(ElementNames.Object);
+        element.Add(new XElement(ElementNames.Id, ID));
+        element.Add(new XElement(ElementNames.Type, Type));
+        element.Add(new XElement(ElementNames.Default, Default));
         if (!string.IsNullOrWhiteSpace(ToolTip))
         {
-            element.Add(new XElement("ToolTip", ToolTip));
+            element.Add(new XElement(ElementNames.ToolTip, ToolTip));
         }
         if (!string.IsNullOrWhiteSpace(Function))
         {
-            element.Add(new XElement("Function", Function));
+            element.Add(new XElement(ElementNames.Function, Function));
         }
         return element;
     }

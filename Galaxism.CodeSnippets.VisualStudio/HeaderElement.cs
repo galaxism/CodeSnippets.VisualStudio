@@ -26,43 +26,43 @@ public class HeaderElement: IValidateElement, IElement
     {
         if(string.IsNullOrWhiteSpace(Title))
         {
-            yield return new ValidationError("Title", "Title is mandatory in Header. ");
+            yield return new ValidationError(ElementNames.Title, "Title is mandatory in Header. ");
         }
     }
 
     public XElement Serialize()
     {
-        XElement element = new("Header");
-        element.Add(new XElement("Title", Title));
+        XElement element = new(ElementNames.Header);
+        element.Add(new XElement(ElementNames.Title, Title));
 
         // These three elements are optional, but can be helpful to included in exported documents. 
-        element.Add(new XElement("Shortcut", Shortcut));
-        element.Add(new XElement("Author", Author));
-        element.Add(new XElement("Description", Description));
+        element.Add(new XElement(ElementNames.Shortcut, Shortcut));
+        element.Add(new XElement(ElementNames.Author, Author));
+        element.Add(new XElement(ElementNames.Description, Description));
         if (!string.IsNullOrWhiteSpace(HelpUrl))
         {
-            element.Add(new XElement("HelpUrl", HelpUrl));
+            element.Add(new XElement(ElementNames.HelpUrl, HelpUrl));
         }
 
         // Add Snippet Type if any
         var types = SnippetTypes?.Where(a => a != SnippetType.None).ToList();
         if(types != null && types.Count > 0)
         {
-            XElement snippetArray = new("SnippetTypes");
+            XElement snippetArray = new(ElementNames.SnippetTypes);
             foreach(var snippetType in types)
             {
                 if(snippetType != SnippetType.None)
                 {
-                    snippetArray.Add(new XElement("SnippetType", EnumHelper.GetString(snippetType)));
+                    snippetArray.Add(new XElement(ElementNames.SnippetType, EnumHelper.GetString(snippetType)));
                 }
             }
         }
         if(Keywords is not null && Keywords.Count > 0)
         {
-            XElement keywordsArray = new("Keywords");
+            XElement keywordsArray = new(ElementNames.Keywords);
             foreach(var keyword in Keywords)
             {
-                keywordsArray.Add(new XElement("Keyword", keyword));
+                keywordsArray.Add(new XElement(ElementNames.Keyword, keyword));
             }
         }
 

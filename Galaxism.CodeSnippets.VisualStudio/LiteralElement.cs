@@ -17,16 +17,16 @@ public class LiteralElement: IValidateElement, IElement
     public XElement Serialize()
     {
         XElement e = new(XmlElementName);
-        e.Add(new XAttribute("Editable", Editable ? "true" : "false"));
-        e.Add(new XElement("ID", ID));
-        e.Add(new XElement("Default", Default));
+        e.Add(new XAttribute(AttributeNames.Editable, Editable ? "true" : "false"));
+        e.Add(new XElement(ElementNames.Id, ID));
+        e.Add(new XElement(ElementNames.Default, Default));
         if (!string.IsNullOrWhiteSpace(Function))
         {
-            e.Add(new XElement("Function", Function));
+            e.Add(new XElement(ElementNames.Function, Function));
         }
         if (!string.IsNullOrWhiteSpace(ToolTip))
         {
-            e.Add(new XElement("ToolTip", ToolTip));
+            e.Add(new XElement(ElementNames.ToolTip, ToolTip));
         }
         return e;
     }
@@ -35,11 +35,11 @@ public class LiteralElement: IValidateElement, IElement
     {
         if(string.IsNullOrWhiteSpace(ID))
         {
-            yield return new ValidationError("ID", "ID is mandatory in Literal. ");
+            yield return new ValidationError(ElementNames.Id, "ID is mandatory in Literal. ");
         }
         if(string.IsNullOrWhiteSpace(Default))
         {
-            yield return new ValidationError("Default", "Default is mandatory in Literal. ");
+            yield return new ValidationError(ElementNames.Default, "Default is mandatory in Literal. ");
         }
     }
 }
