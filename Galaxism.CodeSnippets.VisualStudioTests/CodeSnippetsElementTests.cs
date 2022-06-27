@@ -32,6 +32,8 @@ namespace Galaxism.CodeSnippets.VisualStudio.Tests
             CodeSnippetsElement e = new CodeSnippetsElement();
             e.Deserialize(d.Root);
 
+            XElement result = e.Serialize();
+            Console.WriteLine(result.ToString());
         }
     }
 }

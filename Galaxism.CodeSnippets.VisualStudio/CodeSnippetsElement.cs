@@ -21,9 +21,7 @@ public class CodeSnippetsElement : IValidateElement, IElement
 
     public XElement Serialize()
     {
-        string x = "http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet";
         XElement result = new(ElementNames.CodeSnippets);
-        result.Add(new XAttribute("Xmlns", x));
         foreach(var element in CodeSnippets)
         {
             result.Add(element.Serialize());

@@ -25,7 +25,10 @@ public class LiteralElement : IValidateElement, IElement
     public XElement Serialize()
     {
         XElement e = new(ElementNames.Literal);
-        e.Add(new XAttribute(AttributeNames.Editable, Editable ? "true" : "false"));
+        if (Editable == false)
+        {
+            e.Add(new XAttribute(AttributeNames.Editable, "false"));
+        }
         e.Add(new XElement(ElementNames.Id, ID));
         e.Add(new XElement(ElementNames.Default, Default));
         if (!string.IsNullOrWhiteSpace(Function))
