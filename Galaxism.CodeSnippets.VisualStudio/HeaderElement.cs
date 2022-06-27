@@ -24,7 +24,7 @@ public class HeaderElement : IValidateElement, IElement
     {
         if (string.IsNullOrWhiteSpace(Title))
         {
-            yield return new ValidationError(ElementNames.Title, "Title is mandatory in Header. ");
+            yield return new ValidationError(ElementNames.Title.LocalName, "Title is mandatory in Header. ");
         }
     }
 
@@ -73,7 +73,7 @@ public class HeaderElement : IValidateElement, IElement
         {
             return;
         }
-        var elements = node.Descendants();
+        var elements = node.Elements();
         Title = elements.GetTextByName(ElementNames.Title);
         Author = elements.GetTextByName(ElementNames.Author);
         Description = elements.GetTextByName(ElementNames.Description);
@@ -89,7 +89,7 @@ public class HeaderElement : IValidateElement, IElement
     {
         SnippetTypes = new List<SnippetType>();
         if (e is null) return;
-        var elements = e.Descendants();
+        var elements = e.Elements();
         foreach (var element in elements)
         {
             if (element.Name == ElementNames.SnippetType && element.FirstNode is XText t)
@@ -104,7 +104,7 @@ public class HeaderElement : IValidateElement, IElement
     {
         Keywords = new List<string>();
         if (e is null) return;
-        var elements = e.Descendants();
+        var elements = e.Elements();
         foreach (var element in elements)
         {
             if (element.Name == ElementNames.Keyword && element.FirstNode is XText t)

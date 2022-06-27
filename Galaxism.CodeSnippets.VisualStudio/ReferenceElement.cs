@@ -7,7 +7,7 @@ public class ReferenceElement : IValidateElement, IElement
     public void Deserialize(XElement? node)
     {
         if (node is null || node.Name != ElementNames.Reference) return;
-        var elements = node.Descendants();
+        var elements = node.Elements();
         Assembly = elements.GetTextByName(ElementNames.Assembly);
         Url = elements.GetTextByName(ElementNames.Url);
     }

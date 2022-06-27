@@ -17,7 +17,7 @@ public class SnippetElement : IValidateElement, IElement
     {
         if (Code is null)
         {
-            yield return new ValidationError(ElementNames.Code, "Code is mandatory in Snippet. ");
+            yield return new ValidationError(ElementNames.Code.LocalName, "Code is mandatory in Snippet. ");
         }
         if (Code is not null)
         {
@@ -72,7 +72,7 @@ public class SnippetElement : IValidateElement, IElement
     public void Deserialize(XElement? node)
     {
         if (node is null || node.Name != ElementNames.Snippet) return;
-        var elements = node.Descendants();
+        var elements = node.Elements();
         var codeElement = elements.FirstOrDefault(a => a.Name == ElementNames.Code);
         Code = new();
         Code.Deserialize(codeElement);
@@ -89,7 +89,7 @@ public class SnippetElement : IValidateElement, IElement
     {
         References = new List<ReferenceElement>();
         if (e is null) return;
-        var elements = e.Descendants().Where(a => a.Name == ElementNames.Reference);
+        var elements = e.Elements(ElementNames.Reference);
         foreach (var element in elements)
         {
             ReferenceElement re = new();
@@ -105,7 +105,7 @@ public class SnippetElement : IValidateElement, IElement
     {
         Imports = new List<string>();
         if (e is null) return;
-        var elements = e.Descendants();
+        var elements = e.Elements();
         foreach (var element in elements)
         {
             if (element.Name == ElementNames.Import

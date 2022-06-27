@@ -5,22 +5,22 @@
         #region CodeLanguage
         private static readonly Dictionary<string, CodeLanguage> _codeLanguages = new()
         {
-            ["VB"] = CodeLanguage.VB,
-            ["CSharp"] = CodeLanguage.CSharp,
-            ["CPP"] = CodeLanguage.CPP,
-            ["XAML"] = CodeLanguage.XAML,
-            ["XML"] = CodeLanguage.XML,
-            ["JavaScript"] = CodeLanguage.JavaScript,
-            ["TypeScript"] = CodeLanguage.TypeScript,
-            ["SQL"] = CodeLanguage.SQL,
-            ["HTML"] = CodeLanguage.HTML,
+            ["vb"] = CodeLanguage.VB,
+            ["csharp"] = CodeLanguage.CSharp,
+            ["cpp"] = CodeLanguage.CPP,
+            ["xaml"] = CodeLanguage.XAML,
+            ["xml"] = CodeLanguage.XML,
+            ["javascript"] = CodeLanguage.JavaScript,
+            ["typescript"] = CodeLanguage.TypeScript,
+            ["sql"] = CodeLanguage.SQL,
+            ["html"] = CodeLanguage.HTML,
 
         };
         public static string GetString(CodeLanguage language)
         {
             return language.ToString();
         }
-        public static CodeLanguage GetCodeLanguage(string language) => _codeLanguages.TryGetValue(language, out var codeLanguage) ? codeLanguage : CodeLanguage.None;
+        public static CodeLanguage GetCodeLanguage(string language) => _codeLanguages.TryGetValue(language.ToLower(), out var codeLanguage) ? codeLanguage : CodeLanguage.None;
         #endregion
 
         #region CodeKind

@@ -10,7 +10,7 @@ public class LiteralElement : IValidateElement, IElement
     public void Deserialize(XElement? node)
     {
         if (node is null || node.Name != ElementNames.Literal) return;
-        var elements = node.Descendants();
+        var elements = node.Elements();
         ID = elements.GetTextByName(ElementNames.Id);
         ToolTip = elements.GetTextByName(ElementNames.ToolTip);
         Default = elements.GetTextByName(ElementNames.Default);
@@ -43,11 +43,11 @@ public class LiteralElement : IValidateElement, IElement
     {
         if (string.IsNullOrWhiteSpace(ID))
         {
-            yield return new ValidationError(ElementNames.Id, "ID is mandatory in Literal. ");
+            yield return new ValidationError(ElementNames.Id.LocalName, "ID is mandatory in Literal. ");
         }
         if (string.IsNullOrWhiteSpace(Default))
         {
-            yield return new ValidationError(ElementNames.Default, "Default is mandatory in Literal. ");
+            yield return new ValidationError(ElementNames.Default.LocalName, "Default is mandatory in Literal. ");
         }
     }
 }

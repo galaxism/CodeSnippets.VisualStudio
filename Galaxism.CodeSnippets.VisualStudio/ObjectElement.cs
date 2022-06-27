@@ -11,7 +11,7 @@ public class ObjectElement : IValidateElement, IElement
     public void Deserialize(XElement? node)
     {
         if (node is null || node.Name != ElementNames.Object) return;
-        var elements = node.Descendants();
+        var elements = node.Elements();
         ID = elements.GetTextByName(ElementNames.Id);
         ToolTip = elements.GetTextByName(ElementNames.ToolTip);
         Default = elements.GetTextByName(ElementNames.Default);

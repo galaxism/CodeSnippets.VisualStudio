@@ -21,7 +21,7 @@ public class CodeSnippetElement : IValidateElement, IElement
         #endregion
         Header = new HeaderElement();
         Snippet = new SnippetElement();
-        var childElements = node.Descendants();
+        var childElements = node.Elements();
         var headerElement = childElements.FirstOrDefault(a => a.Name == ElementNames.Header);
         var snippetElement = childElements.FirstOrDefault(a => a.Name == ElementNames.Snippet);
         Header.Deserialize(headerElement);
@@ -47,15 +47,15 @@ public class CodeSnippetElement : IValidateElement, IElement
     {
         if (Format == null)
         {
-            yield return new ValidationError(AttributeNames.Format, "Format must be a valid x.x.x format string. ");
+            yield return new ValidationError(AttributeNames.Format.LocalName, "Format must be a valid x.x.x format string. ");
         }
         if (Header is null)
         {
-            yield return new ValidationError(ElementNames.Header, "Header is mandatory. ");
+            yield return new ValidationError(ElementNames.Header.LocalName, "Header is mandatory. ");
         }
         if (Snippet is null)
         {
-            yield return new ValidationError(ElementNames.Snippet, "Snippet is mandatory. ");
+            yield return new ValidationError(ElementNames.Snippet.LocalName, "Snippet is mandatory. ");
         }
         if (Header is not null)
         {

@@ -78,7 +78,7 @@ public class Declarations : IValidateElement, IElement
         {
             return;
         }
-        var elements = node.Descendants();
+        var elements = node.Elements();
         foreach (var element in elements)
         {
             if (element.Name == ElementNames.Literal)

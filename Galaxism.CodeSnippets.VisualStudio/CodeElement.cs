@@ -64,11 +64,11 @@ public class CodeElement : IValidateElement, IElement
     {
         if (Language == CodeLanguage.None)
         {
-            yield return new ValidationError(AttributeNames.Language, "Language is mandatory in Code element");
+            yield return new ValidationError(AttributeNames.Language.LocalName, "Language is mandatory in Code element");
         }
         if (string.IsNullOrWhiteSpace(Code))
         {
-            yield return new ValidationError(ElementNames.Code, "Code body cannot be empty. ");
+            yield return new ValidationError(ElementNames.Code.LocalName, "Code body cannot be empty. ");
         }
     }
 }
