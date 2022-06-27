@@ -1,5 +1,5 @@
 ﻿namespace Galaxism.CodeSnippets.VisualStudio;
-public class ReferenceElement: IValidateElement, IElement
+public class ReferenceElement : IValidateElement, IElement
 {
     public string? Assembly { get; set; }
     public string? Url { get; set; }
@@ -14,7 +14,7 @@ public class ReferenceElement: IValidateElement, IElement
 
     public XElement? Serialize()
     {
-        if(string.IsNullOrWhiteSpace(Assembly) && string.IsNullOrWhiteSpace(Url))
+        if (string.IsNullOrWhiteSpace(Assembly) && string.IsNullOrWhiteSpace(Url))
         {
             return null;
         }

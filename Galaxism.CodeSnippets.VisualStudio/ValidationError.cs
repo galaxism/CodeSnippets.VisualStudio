@@ -11,7 +11,7 @@ public struct ValidationError
 
     public override bool Equals(object obj)
     {
-        if(obj is ValidationError e)
+        if (obj is ValidationError e)
         {
             return ElementName == e.ElementName && ErrorMessage == e.ErrorMessage;
         }
@@ -19,4 +19,14 @@ public struct ValidationError
     }
 
     public override int GetHashCode() => ElementName.GetHashCode() ^ ErrorMessage.GetHashCode();
+
+    public static bool operator ==(ValidationError left, ValidationError right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(ValidationError left, ValidationError right)
+    {
+        return !(left == right);
+    }
 }

@@ -1,5 +1,5 @@
 ﻿namespace Galaxism.CodeSnippets.VisualStudio;
-public class ObjectElement: IValidateElement, IElement
+public class ObjectElement : IValidateElement, IElement
 {
     public bool Editable { get; set; }
     public string? ID { get; set; }
@@ -42,15 +42,15 @@ public class ObjectElement: IValidateElement, IElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        if(ID is null)
+        if (ID is null)
         {
             yield return new ValidationError("Object", "ID is mandatory in Object.");
         }
-        if(Type is null)
+        if (Type is null)
         {
             yield return new ValidationError("Type", "Type is mandatory in Object.");
         }
-        if(Default is null)
+        if (Default is null)
         {
             yield return new ValidationError("Default", "Default is mandatory in Object.");
         }

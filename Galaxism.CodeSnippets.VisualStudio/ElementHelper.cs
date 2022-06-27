@@ -10,7 +10,7 @@ internal static class ElementHelper
     internal static string? GetTextByName(this IEnumerable<XElement> elements, string name)
     {
         var element = elements.FirstOrDefault(a => a.Name == name);
-        if(element is not null && element.FirstNode is XText t)
+        if (element is not null && element.FirstNode is XText t)
         {
             return t.Value;
         }

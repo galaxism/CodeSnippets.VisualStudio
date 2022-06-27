@@ -69,7 +69,7 @@ public class HeaderElement : IValidateElement, IElement
 
     public void Deserialize(XElement? node)
     {
-        if(node is null || node.Name!= ElementNames.Header)
+        if (node is null || node.Name != ElementNames.Header)
         {
             return;
         }
@@ -78,9 +78,9 @@ public class HeaderElement : IValidateElement, IElement
         Author = elements.GetTextByName(ElementNames.Author);
         Description = elements.GetTextByName(ElementNames.Description);
         HelpUrl = elements.GetTextByName(ElementNames.HelpUrl);
-        Shortcut= elements.GetTextByName(ElementNames.Shortcut);
-        var snippetTypesElement = elements.FirstOrDefault(a=>a.Name == ElementNames.SnippetTypes);
-        var keywordsElement = elements.FirstOrDefault(a=>a.Name == ElementNames.Keywords);
+        Shortcut = elements.GetTextByName(ElementNames.Shortcut);
+        var snippetTypesElement = elements.FirstOrDefault(a => a.Name == ElementNames.SnippetTypes);
+        var keywordsElement = elements.FirstOrDefault(a => a.Name == ElementNames.Keywords);
         DeserializeSnippetTypes(snippetTypesElement);
         DeserializeKeywords(keywordsElement);
     }
@@ -90,9 +90,9 @@ public class HeaderElement : IValidateElement, IElement
         SnippetTypes = new List<SnippetType>();
         if (e is null) return;
         var elements = e.Descendants();
-        foreach(var element in elements)
+        foreach (var element in elements)
         {
-            if(element.Name == ElementNames.SnippetType && element.FirstNode is XText t)
+            if (element.Name == ElementNames.SnippetType && element.FirstNode is XText t)
             {
                 SnippetType type = EnumHelper.GetCodeSnippetType(t.Value);
                 SnippetTypes.Add(type);
@@ -105,7 +105,7 @@ public class HeaderElement : IValidateElement, IElement
         Keywords = new List<string>();
         if (e is null) return;
         var elements = e.Descendants();
-        foreach(var element in elements)
+        foreach (var element in elements)
         {
             if (element.Name == ElementNames.Keyword && element.FirstNode is XText t)
             {

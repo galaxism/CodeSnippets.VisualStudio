@@ -1,5 +1,5 @@
 ﻿namespace Galaxism.CodeSnippets.VisualStudio;
-public class SnippetElement: IValidateElement, IElement
+public class SnippetElement : IValidateElement, IElement
 {
     public CodeElement? Code { get; set; }
     public Declarations Declarations { get; private set; }
@@ -10,23 +10,23 @@ public class SnippetElement: IValidateElement, IElement
     {
         Imports = new List<string>();
         Declarations = new Declarations();
-        References= new List<ReferenceElement>();
+        References = new List<ReferenceElement>();
     }
 
     public IEnumerable<ValidationError> Validate()
     {
-        if(Code is null)
+        if (Code is null)
         {
             yield return new ValidationError(ElementNames.Code, "Code is mandatory in Snippet. ");
         }
-        if(Code is not null)
+        if (Code is not null)
         {
-            foreach(var item in Code.Validate())
+            foreach (var item in Code.Validate())
             {
                 yield return item;
             }
         }
-        
+
     }
 
     public XElement Serialize()
@@ -47,8 +47,8 @@ public class SnippetElement: IValidateElement, IElement
         {
             e.Add(Code.Serialize());
         }
-        
-        if(References.Count > 0)
+
+        if (References.Count > 0)
         {
             XElement referencesElement = new(ElementNames.References);
             int count = 0;
@@ -74,7 +74,7 @@ public class SnippetElement: IValidateElement, IElement
         if (node is null || node.Name != ElementNames.Snippet) return;
         var elements = node.Descendants();
         var codeElement = elements.FirstOrDefault(a => a.Name == ElementNames.Code);
-        Code = new ();
+        Code = new();
         Code.Deserialize(codeElement);
         var declarationsElement = elements.FirstOrDefault(a => a.Name == ElementNames.Declarations);
         Declarations = new();
@@ -90,11 +90,11 @@ public class SnippetElement: IValidateElement, IElement
         References = new List<ReferenceElement>();
         if (e is null) return;
         var elements = e.Descendants().Where(a => a.Name == ElementNames.Reference);
-        foreach(var element in elements)
+        foreach (var element in elements)
         {
             ReferenceElement re = new();
             re.Deserialize(element);
-            if(re.Assembly!=null && re.Url != null)
+            if (re.Assembly != null && re.Url != null)
             {
                 References.Add(re);
             }
@@ -104,12 +104,12 @@ public class SnippetElement: IValidateElement, IElement
     private void DeserializeImports(XElement? e)
     {
         Imports = new List<string>();
-        if(e is null) return;
+        if (e is null) return;
         var elements = e.Descendants();
-        foreach(var element in elements)
+        foreach (var element in elements)
         {
-            if(element.Name == ElementNames.Import 
-                && element.FirstNode is XElement ie 
+            if (element.Name == ElementNames.Import
+                && element.FirstNode is XElement ie
                 && ie.Name == ElementNames.Namespace
                 && ie.FirstNode is XText t)
             {

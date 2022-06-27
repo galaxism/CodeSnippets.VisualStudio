@@ -1,6 +1,5 @@
-﻿using System.Xml.Linq;
-namespace Galaxism.CodeSnippets.VisualStudio;
-public class LiteralElement: IValidateElement, IElement
+﻿namespace Galaxism.CodeSnippets.VisualStudio;
+public class LiteralElement : IValidateElement, IElement
 {
     public bool Editable { get; set; } = true;
     public string? ID { get; set; }
@@ -17,7 +16,7 @@ public class LiteralElement: IValidateElement, IElement
         Default = elements.GetTextByName(ElementNames.Default);
         Function = elements.GetTextByName(ElementNames.Function);
         var attribute = node.Attribute(AttributeNames.Editable);
-        if(attribute is not null)
+        if (attribute is not null)
         {
             Editable = !bool.TryParse(attribute.Value, out bool b) || b;
         }
@@ -42,11 +41,11 @@ public class LiteralElement: IValidateElement, IElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        if(string.IsNullOrWhiteSpace(ID))
+        if (string.IsNullOrWhiteSpace(ID))
         {
             yield return new ValidationError(ElementNames.Id, "ID is mandatory in Literal. ");
         }
-        if(string.IsNullOrWhiteSpace(Default))
+        if (string.IsNullOrWhiteSpace(Default))
         {
             yield return new ValidationError(ElementNames.Default, "Default is mandatory in Literal. ");
         }
