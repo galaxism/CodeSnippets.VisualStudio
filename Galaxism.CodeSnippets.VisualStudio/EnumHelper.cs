@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Galaxism.CodeSnippets.VisualStudio
+﻿namespace Galaxism.CodeSnippets.VisualStudio
 {
     public static class EnumHelper
     {

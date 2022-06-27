@@ -4,9 +4,12 @@ public class ReferenceElement: IValidateElement, IElement
     public string? Assembly { get; set; }
     public string? Url { get; set; }
 
-    public void Deserialize(XElement node)
+    public void Deserialize(XElement? node)
     {
-        throw new NotImplementedException();
+        if (node is null || node.Name != ElementNames.Reference) return;
+        var elements = node.Descendants();
+        Assembly = elements.GetTextByName(ElementNames.Assembly);
+        Url = elements.GetTextByName(ElementNames.Url);
     }
 
     public XElement? Serialize()

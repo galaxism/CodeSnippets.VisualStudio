@@ -2,5 +2,5 @@
 public interface IElement
 {
     XElement? Serialize();
-    void Deserialize(XElement node);
+    void Deserialize(XElement? node);
 }

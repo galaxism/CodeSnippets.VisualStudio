@@ -8,9 +8,19 @@ public class ObjectElement: IValidateElement, IElement
     public string? Default { get; set; }
     public string? Function { get; set; }
 
-    public void Deserialize(XElement node)
+    public void Deserialize(XElement? node)
     {
-       
+        if (node is null || node.Name != ElementNames.Object) return;
+        var elements = node.Descendants();
+        ID = elements.GetTextByName(ElementNames.Id);
+        ToolTip = elements.GetTextByName(ElementNames.ToolTip);
+        Default = elements.GetTextByName(ElementNames.Default);
+        Function = elements.GetTextByName(ElementNames.Function);
+        var attribute = node.Attribute(AttributeNames.Editable);
+        if (attribute is not null)
+        {
+            Editable = !bool.TryParse(attribute.Value, out bool b) || b;
+        }
     }
 
     public XElement Serialize()

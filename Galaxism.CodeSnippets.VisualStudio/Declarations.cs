@@ -1,8 +1,8 @@
 ﻿namespace Galaxism.CodeSnippets.VisualStudio;
 public class Declarations : IValidateElement, IElement
 {
-    public List<LiteralElement> Literals { get; }
-    public List<ObjectElement> Objects { get; }
+    public List<LiteralElement> Literals { get; set; }
+    public List<ObjectElement> Objects { get; set; }
 
     public Declarations()
     {
@@ -12,14 +12,14 @@ public class Declarations : IValidateElement, IElement
 
     public void Add(params LiteralElement[] literals)
     {
-        foreach(var literalElement in literals)
+        foreach (var literalElement in literals)
         {
             Literals.Add(literalElement);
         }
     }
     public void Add(params ObjectElement[] objectElements)
     {
-        foreach(var objectElement in objectElements)
+        foreach (var objectElement in objectElements)
         {
             Objects.Add(objectElement);
         }
@@ -27,24 +27,24 @@ public class Declarations : IValidateElement, IElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        if(Literals is not null && Literals.Count > 0)
+        if (Literals is not null && Literals.Count > 0)
         {
-            foreach(var literal in Literals)
+            foreach (var literal in Literals)
             {
-                foreach(var item in literal.Validate())
+                foreach (var item in literal.Validate())
                 {
                     yield return item;
                 }
             }
         }
 
-        if(Objects is not null && Objects.Count > 0)
+        if (Objects is not null && Objects.Count > 0)
         {
-            foreach(var @object in Objects)
+            foreach (var @object in Objects)
             {
-                foreach(var item in @object.Validate())
+                foreach (var item in @object.Validate())
                 {
-                    yield return item; 
+                    yield return item;
                 }
             }
         }
@@ -52,20 +52,47 @@ public class Declarations : IValidateElement, IElement
 
     public XElement Serialize()
     {
-        XElement e = new XElement(ElementNames.Declarations);
-        foreach(var literal in Literals)
+        XElement e = new(ElementNames.Declarations);
+        if (Literals is not null)
         {
-            e.Add(literal.Serialize());
+            foreach (var literal in Literals)
+            {
+                e.Add(literal.Serialize());
+            }
         }
-        foreach(var @object in Objects)
+        if (Objects is not null)
         {
-            e.Add(@object.Serialize());
+            foreach (var @object in Objects)
+            {
+                e.Add(@object.Serialize());
+            }
         }
         return e;
     }
 
-    public void Deserialize(XElement node)
+    public void Deserialize(XElement? node)
     {
-        throw new NotImplementedException();
+        Literals = new List<LiteralElement>();
+        Objects = new List<ObjectElement>();
+        if (node is null || node.Name != ElementNames.Declarations)
+        {
+            return;
+        }
+        var elements = node.Descendants();
+        foreach (var element in elements)
+        {
+            if (element.Name == ElementNames.Literal)
+            {
+                LiteralElement e = new();
+                e.Deserialize(element);
+                Literals.Add(e);
+            }
+            else if (element.Name == ElementNames.Object)
+            {
+                ObjectElement e = new();
+                e.Deserialize(element);
+                Objects.Add(e);
+            }
+        }
     }
 }

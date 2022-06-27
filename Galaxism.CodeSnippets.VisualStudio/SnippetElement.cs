@@ -2,9 +2,9 @@
 public class SnippetElement: IValidateElement, IElement
 {
     public CodeElement? Code { get; set; }
-    public Declarations Declarations { get; }
-    public List<string> Imports { get; }
-    public List<ReferenceElement> References { get; }
+    public Declarations Declarations { get; private set; }
+    public List<string> Imports { get; private set; }
+    public List<ReferenceElement> References { get; private set; }
 
     public SnippetElement()
     {
@@ -69,8 +69,52 @@ public class SnippetElement: IValidateElement, IElement
         return e;
     }
 
-    public void Deserialize(XElement node)
+    public void Deserialize(XElement? node)
     {
-        throw new NotImplementedException();
+        if (node is null || node.Name != ElementNames.Snippet) return;
+        var elements = node.Descendants();
+        var codeElement = elements.FirstOrDefault(a => a.Name == ElementNames.Code);
+        Code = new ();
+        Code.Deserialize(codeElement);
+        var declarationsElement = elements.FirstOrDefault(a => a.Name == ElementNames.Declarations);
+        Declarations = new();
+        Declarations.Deserialize(declarationsElement);
+        var referencesElement = elements.FirstOrDefault(a => a.Name == ElementNames.References);
+        DeserializeReferences(referencesElement);
+        var importsElement = elements.FirstOrDefault(a => a.Name == ElementNames.Imports);
+        DeserializeImports(importsElement);
+    }
+
+    private void DeserializeReferences(XElement? e)
+    {
+        References = new List<ReferenceElement>();
+        if (e is null) return;
+        var elements = e.Descendants().Where(a => a.Name == ElementNames.Reference);
+        foreach(var element in elements)
+        {
+            ReferenceElement re = new();
+            re.Deserialize(element);
+            if(re.Assembly!=null && re.Url != null)
+            {
+                References.Add(re);
+            }
+        }
+    }
+
+    private void DeserializeImports(XElement? e)
+    {
+        Imports = new List<string>();
+        if(e is null) return;
+        var elements = e.Descendants();
+        foreach(var element in elements)
+        {
+            if(element.Name == ElementNames.Import 
+                && element.FirstNode is XElement ie 
+                && ie.Name == ElementNames.Namespace
+                && ie.FirstNode is XText t)
+            {
+                Imports.Add(t.Value);
+            }
+        }
     }
 }

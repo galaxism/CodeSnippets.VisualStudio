@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Galaxism.CodeSnippets.VisualStudio.Tests
 {
@@ -32,6 +33,33 @@ namespace Galaxism.CodeSnippets.VisualStudio.Tests
             yield return new object?[] { CodeLanguage.None, "1", 1 };
             yield return new object?[] { CodeLanguage.CSharp, "1", 0 };
 
+        }
+
+        [TestMethod()]
+        public void DeserializeTest()
+        {
+            XElement e = new XElement(ElementNames.Code);
+            e.Add(new XAttribute(AttributeNames.Language, "CSharp"));
+            e.Add(new XAttribute(AttributeNames.Kind, "any"));
+            e.Add(new XCData("Hello world"));
+
+            CodeElement code = new CodeElement();
+            code.Deserialize(e);
+            Assert.AreEqual(CodeLanguage.CSharp, code.Language);
+            Assert.AreEqual("Hello world", code.Code);
+        }
+
+        [TestMethod()]
+        public void Deserialize2Test()
+        {
+            XElement e = new XElement(ElementNames.Code, "Hello world");
+            e.Add(new XAttribute(AttributeNames.Language, "CSharp"));
+            e.Add(new XAttribute(AttributeNames.Kind, "any"));
+
+            CodeElement code = new CodeElement();
+            code.Deserialize(e);
+            Assert.AreEqual(CodeLanguage.CSharp, code.Language);
+            Assert.AreEqual("Hello world", code.Code);
         }
     }
 }

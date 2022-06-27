@@ -1,7 +1,5 @@
-﻿using System.Xml.Serialization;
-
-namespace Galaxism.CodeSnippets.VisualStudio;
-public class HeaderElement: IValidateElement, IElement
+﻿namespace Galaxism.CodeSnippets.VisualStudio;
+public class HeaderElement : IValidateElement, IElement
 {
     public string? Title { get; set; }
     /// <summary>
@@ -24,7 +22,7 @@ public class HeaderElement: IValidateElement, IElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        if(string.IsNullOrWhiteSpace(Title))
+        if (string.IsNullOrWhiteSpace(Title))
         {
             yield return new ValidationError(ElementNames.Title, "Title is mandatory in Header. ");
         }
@@ -46,21 +44,21 @@ public class HeaderElement: IValidateElement, IElement
 
         // Add Snippet Type if any
         var types = SnippetTypes?.Where(a => a != SnippetType.None).ToList();
-        if(types != null && types.Count > 0)
+        if (types != null && types.Count > 0)
         {
             XElement snippetArray = new(ElementNames.SnippetTypes);
-            foreach(var snippetType in types)
+            foreach (var snippetType in types)
             {
-                if(snippetType != SnippetType.None)
+                if (snippetType != SnippetType.None)
                 {
                     snippetArray.Add(new XElement(ElementNames.SnippetType, EnumHelper.GetString(snippetType)));
                 }
             }
         }
-        if(Keywords is not null && Keywords.Count > 0)
+        if (Keywords is not null && Keywords.Count > 0)
         {
             XElement keywordsArray = new(ElementNames.Keywords);
-            foreach(var keyword in Keywords)
+            foreach (var keyword in Keywords)
             {
                 keywordsArray.Add(new XElement(ElementNames.Keyword, keyword));
             }
@@ -69,9 +67,50 @@ public class HeaderElement: IValidateElement, IElement
         return element;
     }
 
-    public void Deserialize(XElement node)
+    public void Deserialize(XElement? node)
     {
-        throw new NotImplementedException();
+        if(node is null || node.Name!= ElementNames.Header)
+        {
+            return;
+        }
+        var elements = node.Descendants();
+        Title = elements.GetTextByName(ElementNames.Title);
+        Author = elements.GetTextByName(ElementNames.Author);
+        Description = elements.GetTextByName(ElementNames.Description);
+        HelpUrl = elements.GetTextByName(ElementNames.HelpUrl);
+        Shortcut= elements.GetTextByName(ElementNames.Shortcut);
+        var snippetTypesElement = elements.FirstOrDefault(a=>a.Name == ElementNames.SnippetTypes);
+        var keywordsElement = elements.FirstOrDefault(a=>a.Name == ElementNames.Keywords);
+        DeserializeSnippetTypes(snippetTypesElement);
+        DeserializeKeywords(keywordsElement);
     }
 
+    private void DeserializeSnippetTypes(XElement e)
+    {
+        SnippetTypes = new List<SnippetType>();
+        if (e is null) return;
+        var elements = e.Descendants();
+        foreach(var element in elements)
+        {
+            if(element.Name == ElementNames.SnippetType && element.FirstNode is XText t)
+            {
+                SnippetType type = EnumHelper.GetCodeSnippetType(t.Value);
+                SnippetTypes.Add(type);
+            }
+        }
+    }
+
+    private void DeserializeKeywords(XElement e)
+    {
+        Keywords = new List<string>();
+        if (e is null) return;
+        var elements = e.Descendants();
+        foreach(var element in elements)
+        {
+            if (element.Name == ElementNames.Keyword && element.FirstNode is XText t)
+            {
+                Keywords.Add(t.Value);
+            }
+        }
+    }
 }
