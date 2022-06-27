@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Galaxism.CodeSnippets.VisualStudio.Tests
@@ -30,7 +31,24 @@ namespace Galaxism.CodeSnippets.VisualStudio.Tests
 
             //s.Serialize(writer, e);
             //writer.Close();
+            CodeSnippetElement codeSnippet = new CodeSnippetElement();
+            codeSnippet.Snippet = new SnippetElement();
+            codeSnippet.Snippet.Code = new CodeElement()
+            {
+                Code = "Hello World",
+                Delimiter = "%",
+                Kind = CodeKind.MethodDeclaration,
+                Language = CodeLanguage.CSharp,
+            };
+            codeSnippet.Snippet.Declarations.Add(new LiteralElement()
+            {
+                ID = "type",
+                Default = "int",
+            });
 
+
+            XElement e = codeSnippet.Serialize();
+            Console.WriteLine(e.ToString());
         }
     }
 }

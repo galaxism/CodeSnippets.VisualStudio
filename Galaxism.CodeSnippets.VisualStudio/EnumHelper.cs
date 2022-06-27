@@ -7,7 +7,7 @@ namespace Galaxism.CodeSnippets.VisualStudio
     public static class EnumHelper
     {
         #region CodeLanguage
-        private static readonly Dictionary<string, CodeLanguage> _codeLanguages = new Dictionary<string, CodeLanguage>
+        private static readonly Dictionary<string, CodeLanguage> _codeLanguages = new()
         {
             ["VB"] = CodeLanguage.VB,
             ["CSharp"] = CodeLanguage.CSharp,
@@ -28,7 +28,7 @@ namespace Galaxism.CodeSnippets.VisualStudio
         #endregion
 
         #region CodeKind
-        private static readonly Dictionary<string, CodeKind> _codeKinds = new Dictionary<string, CodeKind>
+        private static readonly Dictionary<string, CodeKind> _codeKinds = new()
         {
             ["any"] = CodeKind.Any,
             ["method body"] = CodeKind.MethodBody,
@@ -36,7 +36,7 @@ namespace Galaxism.CodeSnippets.VisualStudio
             ["type decl"] = CodeKind.TypeDeclaration,
             ["file"] = CodeKind.File,
         };
-        private static readonly Dictionary<CodeKind, string> _kindsToString = new Dictionary<CodeKind, string>
+        private static readonly Dictionary<CodeKind, string> _kindsToString = new()
         {
             [CodeKind.Any] = "any",
             [CodeKind.TypeDeclaration] = "type decl",
@@ -48,7 +48,28 @@ namespace Galaxism.CodeSnippets.VisualStudio
         {
             return _kindsToString.TryGetValue(kind, out string v) ? v : string.Empty;
         }
+        public static CodeKind GetCodeKind(string s)
+        {
+            return _codeKinds.TryGetValue(s, out CodeKind k) ? k : CodeKind.Any;
+        }
         #endregion
 
+        #region SnippetType
+        private static readonly Dictionary<string, SnippetType> _snippetTypes = new()
+        {
+            ["SurroundsWith"] = SnippetType.SurroundsWith,
+            ["Expansion"] = SnippetType.Expansion,
+            ["Refactoring"] = SnippetType.Refactoring,
+        };
+
+        public static string GetString(SnippetType type)
+        {
+            return type.ToString();
+        }
+        public static SnippetType GetCodeSnippetType(string s)
+        {
+            return _snippetTypes.TryGetValue(s, out var t) ? t : SnippetType.None;
+        }
+        #endregion
     }
 }
