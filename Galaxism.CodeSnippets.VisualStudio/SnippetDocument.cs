@@ -50,35 +50,35 @@ public class SnippetDocument
 
     public void Save(TextWriter writer, SaveOptions option = SaveOptions.None)
     {
-        XDocument document = new XDocument();
+        XDocument document = new();
         document.Add(CodeSnippets.Serialize());
         document.Save(writer, option);
     }
 
     public void Save(string fileName, SaveOptions option = SaveOptions.None)
     {
-        XDocument document = new XDocument();
+        XDocument document = new();
         document.Add(CodeSnippets.Serialize());
         document.Save(fileName, option);
     }
 
     public void Save(Stream stream, SaveOptions option = SaveOptions.None)
     {
-        XDocument document = new XDocument();
+        XDocument document = new();
         document.Add(CodeSnippets.Serialize());
         document.Save(stream, option);
     }
 
     public override string ToString()
     {
-        XDocument document = new XDocument();
+        XDocument document = new();
         document.Add(CodeSnippets.Serialize());
         return document.ToString();
     }
 
     public string ToString(SaveOptions options)
     {
-        XDocument document = new XDocument();
+        XDocument document = new();
         document.Add(CodeSnippets.Serialize());
         return document.ToString(options);
     }

@@ -31,7 +31,7 @@ public class ReferenceElement : IValidateElement, IElement
     {
         if (string.IsNullOrWhiteSpace(Assembly))
         {
-            yield return new ValidationError(nameof(Assembly), "Assembly is mandatory in Reference");
+            yield return new ValidationError(ElementNames.Assembly.LocalName, "Assembly is mandatory in Reference");
         }
     }
 }
