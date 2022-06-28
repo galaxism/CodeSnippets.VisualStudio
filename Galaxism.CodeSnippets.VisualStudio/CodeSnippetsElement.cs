@@ -31,6 +31,16 @@ public class CodeSnippetsElement : IValidateElement, IElement
 
     public IEnumerable<ValidationError> Validate()
     {
-        throw new NotImplementedException();
+        if(CodeSnippets is not null && CodeSnippets.Count > 0)
+        {
+            foreach(var codeSnippet in CodeSnippets)
+            {
+                var errors = codeSnippet.Validate();
+                foreach(var error in errors)
+                {
+                    yield return error;
+                }
+            }
+        }
     }
 }
