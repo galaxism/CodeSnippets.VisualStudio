@@ -7,6 +7,11 @@
 		<Nullable>enable</Nullable>
 		<Version>0.2.0</Version>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<Authors>Dong Bin</Authors>
+		<Company>Galaxism</Company>
+		<RepositoryUrl>https://github.com/galaxism/CodeSnippets.VisualStudio</RepositoryUrl>
+		<PackageTags>Code Snippets;</PackageTags>
+		<AnalysisLevel>none</AnalysisLevel>
 
 	</PropertyGroup>
 
